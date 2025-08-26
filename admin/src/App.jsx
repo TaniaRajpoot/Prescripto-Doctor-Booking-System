@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import Login from './pages/Login'
- import { ToastContainer, toast } from 'react-toastify';
+ import { ToastContainer } from 'react-toastify';
  import 'react-toastify/dist/ReactToastify.css';
  import {AdminContext} from './context/AdminContext';
 import Navbar from './components/Navbar';
-import Sidebar from './components/SIdeBAr';
+import Sidebar from './components/Sidebar';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Admin/Dashboard';
 import AllAppointment from './pages/Admin/AllAppointment';
