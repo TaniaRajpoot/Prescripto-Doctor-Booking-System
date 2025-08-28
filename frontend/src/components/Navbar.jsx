@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import logo from '../assets/assets_frontend/logo.svg';
-import profile_pic from '../assets/assets_frontend/profile_pic.png';
 import dropDownIcon from '../assets/assets_frontend/dropdown_icon.svg';
 import menu_icon from '../assets/assets_frontend/menu_icon.svg';
 import cross_icon from '../assets/assets_frontend/cross_icon.png';
@@ -11,15 +10,12 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  const {token, setToken,userData} = useContext(AppContext)
-  
+  const { token, setToken, userData } = useContext(AppContext)
 
   const [showMenu, setShowMenu] = useState(false);
-
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
- 
-  const logout = ()=>{
+  const logout = () => {
     setToken(false);
     setShowMenu(false);
     setShowProfileMenu(false);
@@ -35,6 +31,7 @@ const Navbar = () => {
         alt='logo'
       />
 
+      {/* Desktop Nav Links */}
       <ul className='hidden md:flex items-start gap-5 font-medium'>
         <NavLink to='/' end className='nav-link'>
           <li className='py-1'>Home</li>
@@ -55,6 +52,16 @@ const Navbar = () => {
           <li className='py-1'>Contact</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
         </NavLink>
+
+        
+     {/* ✅ Admin Panel Button (Desktop) */}
+<button
+  onClick={() => window.location.href = 'https://prescripto-booking-system-admin.vercel.app/'}
+  className='bg-white text-sm text-black border border-gray-800 px-5 py-2 rounded-full font-medium hover:bg-primary hover:text-white transition hidden md:block'
+>
+  Admin Panel
+</button>
+
       </ul>
 
       <div className='flex items-center gap-4 relative'>
@@ -74,50 +81,47 @@ const Navbar = () => {
             Create Account
           </button>
         )}
-        
 
-       {/* Profile Dropdown */}
-{showProfileMenu && (
-<div className='absolute top-14 right-0 text-base font-medium text-gray-600 z-20 bg-stone-100 rounded flex flex-col gap-4 p-4 min-w-[180px] whitespace-nowrap'>
-    <button
-      onClick={() => {
-        navigate('my-profile');
-        setShowProfileMenu(false);
-      }}
-      className='hover:text-black cursor-pointer text-left w-full'
-      type="button"
-    >
-      My Profile
-    </button>
-    <button
-      onClick={() => {
-        navigate('my-appointment');
-        setShowProfileMenu(false);
-      }}
-      className='hover:text-black cursor-pointer text-left w-full'
-      type="button"
-    >
-      My Appointment
-    </button>
-    <button
-      onClick={logout}
-      className='hover:text-black cursor-pointer text-left w-full'
-      type="button"
-    >
-      Logout
-    </button>
-  </div>
-)}
-
+        {/* Profile Dropdown */}
+        {showProfileMenu && (
+          <div className='absolute top-14 right-0 text-base font-medium text-gray-600 z-20 bg-stone-100 rounded flex flex-col gap-4 p-4 min-w-[180px] whitespace-nowrap'>
+            <button
+              onClick={() => {
+                navigate('my-profile');
+                setShowProfileMenu(false);
+              }}
+              className='hover:text-black cursor-pointer text-left w-full'
+              type="button"
+            >
+              My Profile
+            </button>
+            <button
+              onClick={() => {
+                navigate('my-appointment');
+                setShowProfileMenu(false);
+              }}
+              className='hover:text-black cursor-pointer text-left w-full'
+              type="button"
+            >
+              My Appointment
+            </button>
+            <button
+              onClick={logout}
+              className='hover:text-black cursor-pointer text-left w-full'
+              type="button"
+            >
+              Logout
+            </button>
+          </div>
+        )}
 
         {/* ----Mobile Menu---- */}
-
-      <img
-      src={menu_icon}
-      alt="menu"
-      className="w-6 h-6 cursor-pointer block md:hidden"
-      onClick={() => setShowMenu(true)}
-      />
+        <img
+          src={menu_icon}
+          alt="menu"
+          className="w-6 h-6 cursor-pointer block md:hidden"
+          onClick={() => setShowMenu(true)}
+        />
 
         <div
           className={`fixed top-0 right-0 bottom-0 z-20 bg-white transition-all duration-300 md:hidden ${showMenu ? 'w-3/4 max-w-xs shadow-lg' : 'w-0 overflow-hidden'}`}
@@ -145,6 +149,16 @@ const Navbar = () => {
             <NavLink onClick={() => setShowMenu(false)} to='/contact'>
               <p className='px-4 py-2 rounded inline-block'>CONTACT</p>
             </NavLink>
+            {/* ✅ Mobile Admin Panel */}
+            <button
+              onClick={() => {
+                setShowMenu(false);
+                navigate('/admin-login');
+              }}
+              className='bg-white text-sm border border-gray-800 text-black px-4 py-1 rounded-full font-medium hover:bg-primary hover:text-white transition mt-4'
+            >
+              Admin Panel
+            </button>
           </ul>
         </div>
       </div>
