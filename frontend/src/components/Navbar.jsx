@@ -64,8 +64,6 @@ const Navbar = () => {
              Admin
           </button>
         </li>
-
-       
       </ul>
 
       <div className="flex items-center gap-4 relative">
@@ -82,12 +80,17 @@ const Navbar = () => {
             <img className="w-2.5" src={dropDownIcon} alt="dropdown" />
           </div>
         ) : (
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block"
-          >
-            Create Account
-          </button>
+          <>
+            {/* Desktop Create Account Button */}
+            <button
+              onClick={() => navigate("/login")}
+              className="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block"
+            >
+              Create Account
+            </button>
+            
+            {/* Mobile Create Account Button - shows in mobile menu */}
+          </>
         )}
 
         {/* Profile Dropdown */}
@@ -159,6 +162,22 @@ const Navbar = () => {
             <NavLink onClick={() => setShowMenu(false)} to="/contact">
               <p className="px-4 py-2 rounded inline-block">CONTACT</p>
             </NavLink>
+            
+            {/* Show Create Account button in mobile menu when not logged in */}
+            {!token && (
+              <li className="mt-4">
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                    setShowMenu(false);
+                  }}
+                  className="bg-primary text-white px-6 py-2 rounded-full font-light"
+                >
+                  Create Account
+                </button>
+              </li>
+            )}
+            
             <li className="mt-4">
               <button
                 onClick={() => {
