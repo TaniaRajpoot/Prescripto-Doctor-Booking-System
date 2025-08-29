@@ -1,16 +1,15 @@
-import React, { useContext, useState } from 'react';
-import logo from '../assets/assets_frontend/logo.svg';
-import dropDownIcon from '../assets/assets_frontend/dropdown_icon.svg';
-import menu_icon from '../assets/assets_frontend/menu_icon.svg';
-import cross_icon from '../assets/assets_frontend/cross_icon.png';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { AppContext } from '../context/AppContext';
+import React, { useContext, useState } from "react";
+import logo from "../assets/assets_frontend/logo.svg";
+import dropDownIcon from "../assets/assets_frontend/dropdown_icon.svg";
+import menu_icon from "../assets/assets_frontend/menu_icon.svg";
+import cross_icon from "../assets/assets_frontend/cross_icon.png";
+import { NavLink, useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
-
   const navigate = useNavigate();
 
-  const { token, setToken, userData } = useContext(AppContext)
+  const { token, setToken, userData } = useContext(AppContext);
 
   const [showMenu, setShowMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -19,64 +18,71 @@ const Navbar = () => {
     setToken(false);
     setShowMenu(false);
     setShowProfileMenu(false);
-    localStorage.removeItem('token')
-  }
+    localStorage.removeItem("token");
+  };
 
   return (
-    <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
+    <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
       <img
-        onClick={() => navigate('/')}
-        className='w-44 cursor-pointer'
+        onClick={() => navigate("/")}
+        className="w-44 cursor-pointer"
         src={logo}
-        alt='logo'
+        alt="logo"
       />
 
       {/* Desktop Nav Links */}
-      <ul className='hidden md:flex items-start gap-5 font-medium'>
-        <NavLink to='/' end className='nav-link'>
-          <li className='py-1'>Home</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+      <ul className="hidden md:flex items-start gap-5 font-medium">
+        <NavLink to="/" end className="nav-link">
+          <li className="py-1">Home</li>
+          <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
 
-        <NavLink to='/doctors' className='nav-link'>
-          <li className='py-1'>All Doctors</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+        <NavLink to="/doctors" className="nav-link">
+          <li className="py-1">All Doctors</li>
+          <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
 
-        <NavLink to='/about' className='nav-link'>
-          <li className='py-1'>About</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+        <NavLink to="/about" className="nav-link">
+          <li className="py-1">About</li>
+          <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
 
-        <NavLink to='/contact' className='nav-link'>
-          <li className='py-1'>Contact</li>
-          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+        <NavLink to="/contact" className="nav-link">
+          <li className="py-1">Contact</li>
+          <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
 
-        
-     {/* ✅ Admin Panel Button (Desktop) */}
-<button
-  onClick={() => window.location.href = 'https://prescripto-booking-system-admin.vercel.app/'}
-  className='bg-white text-sm text-black border border-gray-800 px-5 py-2 rounded-full font-medium hover:bg-primary hover:text-white transition hidden md:block'
->
-  Admin Panel
-</button>
-
+        {/* Admin Panel Button (Desktop) */}
+        <button
+          onClick={() =>
+            window.open(
+              "https://prescripto-booking-system-admin.vercel.app/",
+              "_blank"
+            )
+          }
+          className="bg-white text-sm text-black border border-gray-800 px-5 py-2 rounded-full font-medium hover:bg-primary hover:text-white transition hidden md:block"
+        >
+          Admin Panel
+        </button>
       </ul>
 
-      <div className='flex items-center gap-4 relative'>
+      <div className="flex items-center gap-4 relative">
         {token && userData ? (
           <div
-            className='flex items-center gap-2 cursor-pointer'
+            className="flex items-center gap-2 cursor-pointer"
             onClick={() => setShowProfileMenu((prev) => !prev)}
           >
-            <img className='w-8 h-8 rounded-full object-cover' src={userData.image} alt='profile' />
-            <img className='w-2.5' src={dropDownIcon} alt='dropdown' />
+            <img
+              className="w-8 h-8 rounded-full object-cover"
+              src={userData.image}
+              alt="profile"
+            />
+            <img className="w-2.5" src={dropDownIcon} alt="dropdown" />
           </div>
         ) : (
           <button
-            onClick={() => navigate('/login')}
-            className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'
+            onClick={() => navigate("/login")}
+            className="bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block"
           >
             Create Account
           </button>
@@ -84,30 +90,30 @@ const Navbar = () => {
 
         {/* Profile Dropdown */}
         {showProfileMenu && (
-          <div className='absolute top-14 right-0 text-base font-medium text-gray-600 z-20 bg-stone-100 rounded flex flex-col gap-4 p-4 min-w-[180px] whitespace-nowrap'>
+          <div className="absolute top-14 right-0 text-base font-medium text-gray-600 z-20 bg-stone-100 rounded flex flex-col gap-4 p-4 min-w-[180px] whitespace-nowrap">
             <button
               onClick={() => {
-                navigate('my-profile');
+                navigate("my-profile");
                 setShowProfileMenu(false);
               }}
-              className='hover:text-black cursor-pointer text-left w-full'
+              className="hover:text-black cursor-pointer text-left w-full"
               type="button"
             >
               My Profile
             </button>
             <button
               onClick={() => {
-                navigate('my-appointment');
+                navigate("my-appointment");
                 setShowProfileMenu(false);
               }}
-              className='hover:text-black cursor-pointer text-left w-full'
+              className="hover:text-black cursor-pointer text-left w-full"
               type="button"
             >
               My Appointment
             </button>
             <button
               onClick={logout}
-              className='hover:text-black cursor-pointer text-left w-full'
+              className="hover:text-black cursor-pointer text-left w-full"
               type="button"
             >
               Logout
@@ -124,38 +130,43 @@ const Navbar = () => {
         />
 
         <div
-          className={`fixed top-0 right-0 bottom-0 z-20 bg-white transition-all duration-300 md:hidden ${showMenu ? 'w-3/4 max-w-xs shadow-lg' : 'w-0 overflow-hidden'}`}
-          style={{ height: '100vh' }}
+          className={`fixed top-0 right-0 bottom-0 z-20 bg-white transition-all duration-300 md:hidden ${
+            showMenu ? "w-3/4 max-w-xs shadow-lg" : "w-0 overflow-hidden"
+          }`}
+          style={{ height: "100vh" }}
         >
-          <div className='flex items-center justify-between px-5 py-6'>
-            <img className='w-36' src={logo} alt='' />
+          <div className="flex items-center justify-between px-5 py-6">
+            <img className="w-36" src={logo} alt="" />
             <img
-              className='w-7'
+              className="w-7"
               onClick={() => setShowMenu(false)}
               src={cross_icon}
-              alt=''
+              alt=""
             />
           </div>
-          <ul className='flex flex-col items-center gap-2 mt-5 text-lg font-medium'>
-            <NavLink onClick={() => setShowMenu(false)} to='/'>
-              <p className='px-4 py-2 rounded inline-block'>Home</p>
+          <ul className="flex flex-col items-center gap-2 mt-5 text-lg font-medium">
+            <NavLink onClick={() => setShowMenu(false)} to="/">
+              <p className="px-4 py-2 rounded inline-block">Home</p>
             </NavLink>
-            <NavLink onClick={() => setShowMenu(false)} to='/doctors'>
-              <p className='px-4 py-2 rounded inline-block'>ALL DOCTORS</p>
+            <NavLink onClick={() => setShowMenu(false)} to="/doctors">
+              <p className="px-4 py-2 rounded inline-block">ALL DOCTORS</p>
             </NavLink>
-            <NavLink onClick={() => setShowMenu(false)} to='/about'>
-              <p className='px-4 py-2 rounded inline-block'>ABOUT</p>
+            <NavLink onClick={() => setShowMenu(false)} to="/about">
+              <p className="px-4 py-2 rounded inline-block">ABOUT</p>
             </NavLink>
-            <NavLink onClick={() => setShowMenu(false)} to='/contact'>
-              <p className='px-4 py-2 rounded inline-block'>CONTACT</p>
+            <NavLink onClick={() => setShowMenu(false)} to="/contact">
+              <p className="px-4 py-2 rounded inline-block">CONTACT</p>
             </NavLink>
-            {/* ✅ Mobile Admin Panel */}
+            {/* Mobile Admin Panel */}
             <button
               onClick={() => {
                 setShowMenu(false);
-                navigate('/admin-login');
+                window.open(
+                  "https://prescripto-booking-system-admin.vercel.app/",
+                  "_blank"
+                );
               }}
-              className='bg-white text-sm border border-gray-800 text-black px-4 py-1 rounded-full font-medium hover:bg-primary hover:text-white transition mt-4'
+              className="bg-white text-sm border border-gray-800 text-black px-4 py-1 rounded-full font-medium hover:bg-primary hover:text-white transition mt-4"
             >
               Admin Panel
             </button>
