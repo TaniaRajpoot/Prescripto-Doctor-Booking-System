@@ -12,8 +12,8 @@ import userModel from '../models/userModel.js'
 const addDoctor = async (req,res)=>{
     try {
 
-            console.log("Body received:", req.body);
-console.log("File received:", req.file);
+//             console.log("Body received:", req.body);
+// console.log("File received:", req.file);
 
         const {name ,email , password,speciality ,degree,experience,about ,fees ,address} = req.body
        const imageFile = req.file

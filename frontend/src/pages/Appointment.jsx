@@ -25,30 +25,30 @@ const Appointment = () => {
     setError('');
     
     try {
-      console.log('Fetching doctor info for docId:', docId);
-      console.log('Available doctors in context:', doctors.length);
+      // console.log('Fetching doctor info for docId:', docId);
+      // console.log('Available doctors in context:', doctors.length);
       
       // First try to get from context
       const contextDocInfo = doctors.find(doc => doc._id === docId);
-      console.log('Doctor found in context:', !!contextDocInfo);
+      // console.log('Doctor found in context:', !!contextDocInfo);
       
       if (contextDocInfo) {
-        console.log('Context doctor available status:', contextDocInfo.available);
+        // console.log('Context doctor available status:', contextDocInfo.available);
         setDocInfo(contextDocInfo);
       }
       
       // Always fetch fresh data from API to ensure we have latest information
-      console.log('Fetching fresh data from API...');
+      // console.log('Fetching fresh data from API...');
       const { data } = await axios.get(backendUrl + `/api/user/doctor/${docId}`);
       
       if (data.success) {
-        console.log('API response successful');
-        console.log('API doctor available status:', data.doctor.available);
-        console.log('API doctor slots_booked:', data.doctor.slots_booked);
+        // console.log('API response successful');
+        // console.log('API doctor available status:', data.doctor.available);
+        // console.log('API doctor slots_booked:', data.doctor.slots_booked);
         setDocInfo(data.doctor);
         setError('');
       } else {
-        console.log('API response failed:', data.message);
+        // console.log('API response failed:', data.message);
         setError(data.message || 'Failed to fetch doctor information');
         
         // If API fails but we have context data, use it
@@ -63,10 +63,10 @@ const Appointment = () => {
       // Fallback to context data if API fails
       const contextDocInfo = doctors.find(doc => doc._id === docId);
       if (contextDocInfo) {
-        console.log('Using fallback context data');
+        // console.log('Using fallback context data');
         setDocInfo(contextDocInfo);
       } else {
-        console.log('No context data available for fallback');
+        // console.log('No context data available for fallback');
         setError('Doctor not found');
       }
     } finally {
@@ -82,21 +82,21 @@ const Appointment = () => {
 
   const getAvailableSlot = async () => {
     if (!docInfo) {
-      console.log('No doctor info available for slot generation');
+      // console.log('No doctor info available for slot generation');
       return;
     }
 
-    console.log('Getting available slots for doctor:', docInfo.name);
-    console.log('Doctor available status:', docInfo.available);
+    // console.log('Getting available slots for doctor:', docInfo.name);
+    // console.log('Doctor available status:', docInfo.available);
 
     // Check if doctor is available first
     if (docInfo.available === false) {
-      console.log('Doctor is not available - no slots will be generated');
+      // console.log('Doctor is not available - no slots will be generated');
       setDocSlot([]);
       return;
     }
 
-    console.log('Doctor slots_booked:', docInfo.slots_booked);
+    // console.log('Doctor slots_booked:', docInfo.slots_booked);
 
     const slotsBooked = docInfo.slots_booked || {};
     let allSlots = [];
@@ -157,7 +157,7 @@ const Appointment = () => {
       }
     }
 
-    console.log('Generated available slots count:', allSlots.length);
+    // console.log('Generated available slots count:', allSlots.length);
     setDocSlot(allSlots);
   };
 
@@ -185,7 +185,7 @@ const Appointment = () => {
       let year = date.getFullYear();
       const slotDate = day + "_" + month + "_" + year;
 
-      console.log('Attempting to book appointment:', { docId, slotDate, slotTime });
+      // console.log('Attempting to book appointment:', { docId, slotDate, slotTime });
 
       const { data } = await axios.post(
         backendUrl + '/api/user/book-appointment',
@@ -217,12 +217,12 @@ const Appointment = () => {
         // Navigate to appointments page
         navigate('/my-appointment');
       } else {
-        console.log('Booking failed:', data.message);
+        ('Booking failed:', data.message);
         toast.error(data.message);
         
         // If doctor became unavailable, refresh the doctor info
         if (data.message.toLowerCase().includes("not available")) {
-          console.log('Doctor became unavailable, refreshing info...');
+          // console.log('Doctor became unavailable, refreshing info...');
           await fetchDocInfo();
         }
       }
@@ -233,16 +233,16 @@ const Appointment = () => {
       
       // If it's an availability error, refresh the doctor info
       if (errorMessage.toLowerCase().includes("not available")) {
-        console.log('Availability error detected, refreshing info...');
+        // console.log('Availability error detected, refreshing info...');
         await fetchDocInfo();
       }
     }
   };
 
   useEffect(() => {
-    console.log('useEffect triggered - doctors or docId changed');
-    console.log('Doctors count:', doctors.length);
-    console.log('Current docId:', docId);
+    // console.log('useEffect triggered - doctors or docId changed');
+    // console.log('Doctors count:', doctors.length);
+    // console.log('Current docId:', docId);
     
     if (docId && doctors.length > 0) {
       fetchDocInfo();
@@ -250,8 +250,8 @@ const Appointment = () => {
   }, [doctors, docId]);
 
   useEffect(() => {
-    console.log('useEffect triggered - docInfo changed');
-    console.log('Current docInfo:', docInfo ? { name: docInfo.name, available: docInfo.available } : 'null');
+    // console.log('useEffect triggered - docInfo changed');
+    // console.log('Current docInfo:', docInfo ? { name: docInfo.name, available: docInfo.available } : 'null');
     
     if (docInfo) {
       // Reset slot selection when doctor info changes

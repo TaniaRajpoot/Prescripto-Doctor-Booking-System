@@ -19,7 +19,7 @@ const AdminContextProvider = (props) =>{
             const {data} = await axios.post(backendUrl + '/api/admin/all-doctor',{},{headers: {atoken: aToken}}) // Changed aToken to atoken
             if (data.success) {
                 setDoctors(data.doctors)
-                console.log(data.doctors)
+               
                 
             }else{
                 toast.error(data.message)
@@ -50,7 +50,7 @@ const AdminContextProvider = (props) =>{
         const {data} = await axios.get(backendUrl + '/api/admin/appointments',{headers:{atoken: aToken}}) // Changed aToken to atoken
         if (data.success) {
             setAppointments(data.appointments) 
-            console.log(data.appointments)
+      
         }else{
             toast.error(data.message)
         }
@@ -88,7 +88,7 @@ const AdminContextProvider = (props) =>{
 
             if(data.success){
                 setDashData(data.dashData)
-                console.log(data.dashData)
+         
             }else{
                 toast.error(data.error)
             }

@@ -172,7 +172,7 @@ const bookAppointment = async (req, res) => {
     const slotDateKey = String(slotDate);
     const slotTimeStr = String(slotTime);
 
-    console.log("Booking request:", { docId, slotDateKey, slotTimeStr });
+    // console.log("Booking request:", { docId, slotDateKey, slotTimeStr });
 
     // Check if doctor exists and is available
     const doctorData = await doctorModel.findById(docId);
@@ -230,7 +230,7 @@ const bookAppointment = async (req, res) => {
       return res.json({ success: false, message: "Doctor is not available" });
     }
 
-    console.log("Doctor update result:", updateResult);
+    // console.log("Doctor update result:", updateResult);
 
     // Fetch updated doctor and user data for appointment
     const docData = await doctorModel.findById(docId).select("-password");
@@ -255,7 +255,7 @@ const bookAppointment = async (req, res) => {
     const newAppointment = new appointmentModel(appointmentData);
     const savedAppointment = await newAppointment.save();
 
-    console.log("Appointment saved:", savedAppointment._id);
+    // console.log("Appointment saved:", savedAppointment._id);
 
     return res.json({ success: true, message: "Appointment Booked" });
   } catch (error) {
@@ -454,7 +454,7 @@ const handleStripeWebhook = async (req, res) => {
 
   // If no webhook secret is configured, skip signature verification for now
   if (!webhookSecret) {
-    console.log('Webhook secret not configured, skipping signature verification');
+    // console.log('Webhook secret not configured, skipping signature verification');
     return res.json({ received: true, message: 'Webhook secret not configured' });
   }
 
@@ -463,7 +463,7 @@ const handleStripeWebhook = async (req, res) => {
   try {
     event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
   } catch (err) {
-    console.log(`Webhook signature verification failed.`, err.message);
+    // console.log(`Webhook signature verification failed.`, err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
@@ -471,7 +471,7 @@ const handleStripeWebhook = async (req, res) => {
   switch (event.type) {
     case 'payment_intent.succeeded':
       const paymentIntent = event.data.object;
-      console.log('Payment succeeded:', paymentIntent.id);
+      // console.log('Payment succeeded:', paymentIntent.id);
       
       // Update appointment status
       if (paymentIntent.metadata.appointmentId) {
@@ -488,7 +488,7 @@ const handleStripeWebhook = async (req, res) => {
     
     case 'payment_intent.payment_failed':
       const failedPayment = event.data.object;
-      console.log('Payment failed:', failedPayment.id);
+      // console.log('Payment failed:', failedPayment.id);
       
       // Update appointment status
       if (failedPayment.metadata.appointmentId) {
@@ -502,7 +502,7 @@ const handleStripeWebhook = async (req, res) => {
       break;
     
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      // console.log(`Unhandled event type ${event.type}`);
   }
 
   res.json({ received: true });

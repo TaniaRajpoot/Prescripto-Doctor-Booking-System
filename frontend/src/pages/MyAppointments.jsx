@@ -35,7 +35,7 @@ const MyAppointments = () => {
 
       if (data.success) {
         setAppointment(data.appointment.reverse())
-        console.log(data.appointment)
+        // console.log(data.appointment)
       }
 
     } catch (error) {
@@ -52,8 +52,8 @@ const MyAppointments = () => {
       const { data } = await axios.post(backendUrl + '/api/user/cancel-appointments', { appointmentId }, { headers: { token } })
       
       if (data.success) {
-        console.log("Cancel response:", data);
-        console.log("Showing toast with message:", data.message);
+        // console.log("Cancel response:", data);
+        // console.log("Showing toast with message:", data.message);
         toast.success(data.message)
         
         // Update the appointment list locally for immediate UI update
