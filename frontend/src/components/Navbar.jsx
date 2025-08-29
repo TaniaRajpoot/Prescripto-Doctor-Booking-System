@@ -21,6 +21,10 @@ const Navbar = () => {
     localStorage.removeItem("token");
   };
 
+  const handleAdminPanel = () => {
+    window.open("https://prescripto-booking-system-admin.vercel.app/", "_blank");
+  };
+
   return (
     <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
       <img
@@ -52,18 +56,16 @@ const Navbar = () => {
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
 
-        {/* Admin Panel Button (Desktop) */}
-        <button
-          onClick={() =>
-            window.open(
-              "https://prescripto-booking-system-admin.vercel.app/",
-              "_blank"
-            )
-          }
-          className="bg-white text-sm text-black border border-gray-800 px-5 py-2 rounded-full font-medium hover:bg-primary hover:text-white transition hidden md:block"
-        >
-          Admin Panel
-        </button>
+        <li className="py-1 flex items-center">
+          <button
+            onClick={handleAdminPanel}
+            className="bg-gradient-to-r from-primary to-primary text-white px-3 py-1.5 rounded-lg font-medium hover:from-primary hover:to-primary hover:shadow-lg transform hover:scale-105 transition-all duration-300 relative z-30 text-xs border border-transparent hover:border-white/20"
+          >
+             Admin
+          </button>
+        </li>
+
+       
       </ul>
 
       <div className="flex items-center gap-4 relative">
@@ -157,19 +159,17 @@ const Navbar = () => {
             <NavLink onClick={() => setShowMenu(false)} to="/contact">
               <p className="px-4 py-2 rounded inline-block">CONTACT</p>
             </NavLink>
-            {/* Mobile Admin Panel */}
-            <button
-              onClick={() => {
-                setShowMenu(false);
-                window.open(
-                  "https://prescripto-booking-system-admin.vercel.app/",
-                  "_blank"
-                );
-              }}
-              className="bg-white text-sm border border-gray-800 text-black px-4 py-1 rounded-full font-medium hover:bg-primary hover:text-white transition mt-4"
-            >
-              Admin Panel
-            </button>
+            <li className="mt-4">
+              <button
+                onClick={() => {
+                  handleAdminPanel();
+                  setShowMenu(false);
+                }}
+                className="bg-gradient-to-r from-primary to-primary text-white px-2 py-2 rounded-lg font-medium hover:from-primary hover:to-primary hover:shadow-lg transform hover:scale-105 transition-all duration-300 text-sm border border-transparent hover:border-white/20 w-full"
+              >
+                 ADMIN PANEL
+              </button>
+            </li>
           </ul>
         </div>
       </div>
