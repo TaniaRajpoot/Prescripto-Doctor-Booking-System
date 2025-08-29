@@ -55,12 +55,15 @@ const Navbar = () => {
 
         
      {/* ✅ Admin Panel Button (Desktop) */}
-<button
-  onClick={() => window.location.href = 'https://prescripto-booking-system-admin.vercel.app/'}
-  className='bg-white text-sm text-black border border-gray-800 px-5 py-2 rounded-full font-medium hover:bg-primary hover:text-white transition hidden md:block'
->
-  Admin Panel
-</button>
+            <button
+              onClick={() => {
+                setShowMenu(false);
+                navigate('/admin-login');
+              }}
+              className='bg-white text-sm border border-gray-800 text-black px-4 py-1 rounded-full font-medium hover:bg-primary hover:text-white transition mt-4'
+            >
+              Admin Panel
+            </button>
 
       </ul>
 
